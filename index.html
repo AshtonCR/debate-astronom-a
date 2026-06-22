@@ -1,0 +1,1207 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Debate Agujeros Negros Supermasivos UCR</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #05040f;
+        --surface: #0c0a1e;
+        --card: rgba(255, 255, 255, 0.035);
+        --border: rgba(255, 255, 255, 0.08);
+        --border-bright: rgba(255, 165, 0, 0.35);
+        --text: #ede8ff;
+        --muted: #6b6480;
+        --orange: #ff8c00;
+        --amber: #ffb347;
+        --gold: #ffd700;
+        --blue: #4fc3f7;
+        --teal: #26c6da;
+        --red: #ef5350;
+        --green: #66bb6a;
+        --jury: #9575cd;
+        --g1: #ff6b6b;
+        --g2: #4ecdc4;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Fraunces", Georgia, serif;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      #stars {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .glow-orb {
+        position: fixed;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 0;
+      }
+      .glow-orb.a {
+        width: 700px;
+        height: 700px;
+        bottom: -350px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: radial-gradient(
+          circle,
+          rgba(255, 140, 0, 0.06) 0%,
+          transparent 65%
+        );
+        animation: breathe 8s ease-in-out infinite;
+      }
+      .glow-orb.b {
+        width: 400px;
+        height: 400px;
+        top: -100px;
+        right: -100px;
+        background: radial-gradient(
+          circle,
+          rgba(79, 195, 247, 0.05) 0%,
+          transparent 65%
+        );
+        animation: breathe 10s ease-in-out infinite reverse;
+      }
+
+      @keyframes breathe {
+        0%,
+        100% {
+          transform: translateX(-50%) scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: translateX(-50%) scale(1.12);
+          opacity: 0.7;
+        }
+      }
+
+      .wrap {
+        position: relative;
+        z-index: 1;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem 5rem;
+      }
+
+      .hdr {
+        text-align: center;
+        padding: 3.5rem 0 3rem;
+        opacity: 0;
+        animation: up 0.7s 0.1s forwards;
+      }
+      .hdr-badge {
+        display: inline-block;
+        font-family: "DM Mono", monospace;
+        font-size: 0.65rem;
+        letter-spacing: 0.3em;
+        color: var(--amber);
+        border: 1px solid rgba(255, 179, 71, 0.3);
+        border-radius: 20px;
+        padding: 0.35rem 1rem;
+        margin-bottom: 1.5rem;
+        text-transform: uppercase;
+      }
+      .hdr h1 {
+        font-size: clamp(2.4rem, 7vw, 4.5rem);
+        font-weight: 900;
+        font-style: italic;
+        line-height: 1;
+        background: linear-gradient(
+          160deg,
+          #fff 0%,
+          var(--amber) 50%,
+          var(--orange) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.6rem;
+      }
+      .hdr .sub {
+        font-family: "DM Mono", monospace;
+        font-size: 0.75rem;
+        color: var(--muted);
+        letter-spacing: 0.1em;
+      }
+
+      @keyframes up {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .sec-label {
+        font-family: "DM Mono", monospace;
+        font-size: 0.6rem;
+        letter-spacing: 0.3em;
+        color: var(--orange);
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+      }
+
+      .groups-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.6rem;
+        margin-bottom: 2.5rem;
+        opacity: 0;
+        animation: up 0.7s 0.25s forwards;
+      }
+      .g-chip {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 0.9rem 0.6rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .g-chip::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+      }
+      .g-chip:nth-child(1)::after {
+        background: var(--g1);
+      }
+      .g-chip:nth-child(2)::after {
+        background: var(--g2);
+      }
+      .g-chip:nth-child(3)::after {
+        background: var(--gold);
+      }
+      .g-num {
+        font-family: "DM Mono", monospace;
+        font-size: 1.3rem;
+        font-weight: 500;
+        margin-bottom: 0.2rem;
+      }
+      .g-chip:nth-child(1) .g-num {
+        color: var(--g1);
+      }
+      .g-chip:nth-child(2) .g-num {
+        color: var(--g2);
+      }
+      .g-chip:nth-child(3) .g-num {
+        color: var(--gold);
+      }
+      .g-chip.jurado-chip::after {
+        background: var(--jury) !important;
+      }
+      .g-chip.jurado-chip .g-num {
+        color: var(--jury) !important;
+      }
+      .g-role {
+        font-size: 0.68rem;
+        color: var(--muted);
+        font-family: "DM Mono", monospace;
+        line-height: 1.4;
+      }
+
+      .tabs {
+        display: flex;
+        gap: 0.4rem;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 0;
+        opacity: 0;
+        animation: up 0.7s 0.35s forwards;
+        flex-wrap: wrap;
+      }
+      .tab {
+        font-family: "DM Mono", monospace;
+        font-size: 0.72rem;
+        padding: 0.65rem 1.1rem;
+        cursor: pointer;
+        color: var(--muted);
+        border-bottom: 2px solid transparent;
+        transition: all 0.2s;
+        white-space: nowrap;
+        letter-spacing: 0.05em;
+        border-radius: 6px 6px 0 0;
+      }
+      .tab:hover {
+        color: var(--text);
+      }
+      .tab.active {
+        color: var(--amber);
+        border-bottom-color: var(--amber);
+      }
+
+      .panel {
+        display: none;
+      }
+      .panel.active {
+        display: block;
+        animation: up 0.4s forwards;
+      }
+
+      .duel-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 1.8rem;
+        margin-bottom: 1.5rem;
+      }
+      .duel-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+      }
+      .duel-badge {
+        font-family: "DM Mono", monospace;
+        font-size: 0.6rem;
+        letter-spacing: 0.2em;
+        color: var(--amber);
+        background: rgba(255, 140, 0, 0.1);
+        border: 1px solid rgba(255, 140, 0, 0.25);
+        border-radius: 20px;
+        padding: 0.3rem 0.75rem;
+        text-transform: uppercase;
+      }
+      .duel-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        font-style: italic;
+      }
+      .duel-q {
+        background: rgba(255, 140, 0, 0.06);
+        border-left: 3px solid var(--orange);
+        border-radius: 0 8px 8px 0;
+        padding: 1rem 1.2rem;
+        margin-bottom: 1.5rem;
+        font-size: 1rem;
+        font-style: italic;
+        line-height: 1.6;
+      }
+      .duel-q .q-label {
+        font-family: "DM Mono", monospace;
+        font-size: 0.6rem;
+        letter-spacing: 0.2em;
+        color: var(--orange);
+        text-transform: uppercase;
+        margin-bottom: 0.4rem;
+        font-style: normal;
+      }
+
+      .vs-row {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 1rem;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+      .vs-team {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1rem;
+        text-align: center;
+      }
+      .vs-team .t-num {
+        font-family: "DM Mono", monospace;
+        font-size: 1.6rem;
+        font-weight: 500;
+        margin-bottom: 0.2rem;
+      }
+      .vs-team .t-label {
+        font-family: "DM Mono", monospace;
+        font-size: 0.65rem;
+        color: var(--muted);
+      }
+      .vs-sep {
+        font-family: "Fraunces", serif;
+        font-size: 1.5rem;
+        font-style: italic;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .timer-section {
+        border-top: 1px solid var(--border);
+        padding-top: 1.2rem;
+      }
+      .timer-label {
+        font-family: "DM Mono", monospace;
+        font-size: 0.6rem;
+        letter-spacing: 0.2em;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+      }
+      .timer-controls {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+      .timer-display {
+        font-family: "DM Mono", monospace;
+        font-size: 2.4rem;
+        font-weight: 500;
+        min-width: 100px;
+        letter-spacing: 0.05em;
+      }
+      .timer-display.running {
+        color: var(--green);
+      }
+      .timer-display.warning {
+        color: var(--amber);
+      }
+      .timer-display.danger {
+        color: var(--red);
+        animation: blink 0.6s infinite;
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.4;
+        }
+      }
+
+      .timer-btn {
+        font-family: "DM Mono", monospace;
+        font-size: 0.72rem;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        border: 1px solid;
+        cursor: pointer;
+        transition: all 0.15s;
+        letter-spacing: 0.05em;
+      }
+      .btn-start {
+        background: rgba(102, 187, 106, 0.1);
+        border-color: var(--green);
+        color: var(--green);
+      }
+      .btn-pause {
+        background: rgba(255, 179, 71, 0.1);
+        border-color: var(--amber);
+        color: var(--amber);
+      }
+      .btn-reset {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: var(--border);
+        color: var(--muted);
+      }
+      .timer-btn:hover {
+        opacity: 0.75;
+        transform: translateY(-1px);
+      }
+
+      .preset-row {
+        display: flex;
+        gap: 0.4rem;
+        margin-top: 0.6rem;
+        flex-wrap: wrap;
+      }
+      .preset {
+        font-family: "DM Mono", monospace;
+        font-size: 0.65rem;
+        padding: 0.3rem 0.65rem;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        cursor: pointer;
+        color: var(--muted);
+        transition: all 0.15s;
+      }
+      .preset:hover {
+        border-color: var(--amber);
+        color: var(--amber);
+      }
+
+      .phases {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+      }
+      .phase-step {
+        flex: 1;
+        min-width: 120px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 0.8rem;
+        position: relative;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .phase-step.done {
+        border-color: rgba(102, 187, 106, 0.4);
+        background: rgba(102, 187, 106, 0.06);
+      }
+      .phase-step.current {
+        border-color: var(--amber);
+        background: rgba(255, 140, 0, 0.08);
+      }
+      .phase-step .p-num {
+        font-family: "DM Mono", monospace;
+        font-size: 0.6rem;
+        color: var(--muted);
+        margin-bottom: 0.3rem;
+      }
+      .phase-step .p-name {
+        font-size: 0.8rem;
+        font-weight: 700;
+      }
+      .phase-step .p-dur {
+        font-family: "DM Mono", monospace;
+        font-size: 0.62rem;
+        color: var(--muted);
+        margin-top: 0.2rem;
+      }
+      .phase-step.done .p-name::after {
+        content: " ✓";
+        color: var(--green);
+      }
+
+      .jury-card {
+        background: rgba(149, 117, 205, 0.06);
+        border: 1px solid rgba(149, 117, 205, 0.2);
+        border-radius: 14px;
+        padding: 1.8rem;
+        margin-bottom: 1.5rem;
+      }
+      .jury-title {
+        font-family: "DM Mono", monospace;
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        color: var(--jury);
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+      }
+      .rubric-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 0.75rem;
+        margin-bottom: 1.2rem;
+      }
+      .rubric-item {
+        background: rgba(149, 117, 205, 0.06);
+        border: 1px solid rgba(149, 117, 205, 0.15);
+        border-radius: 8px;
+        padding: 0.9rem;
+      }
+      .rubric-item .r-name {
+        font-size: 0.8rem;
+        font-weight: 700;
+        margin-bottom: 0.3rem;
+      }
+      .rubric-item .r-desc {
+        font-family: "DM Mono", monospace;
+        font-size: 0.62rem;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+      .score-row {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--border);
+        flex-wrap: wrap;
+      }
+      .score-row:last-of-type {
+        border-bottom: none;
+      }
+      .score-team {
+        font-family: "DM Mono", monospace;
+        font-size: 0.75rem;
+        min-width: 70px;
+      }
+      .score-stars {
+        display: flex;
+        gap: 3px;
+      }
+      .star {
+        font-size: 1.1rem;
+        cursor: pointer;
+        opacity: 0.3;
+        transition: opacity 0.1s;
+      }
+      .star.lit {
+        opacity: 1;
+      }
+      .score-note {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 0.4rem 0.7rem;
+        color: var(--text);
+        font-family: "DM Mono", monospace;
+        font-size: 0.72rem;
+        outline: none;
+        min-width: 120px;
+      }
+      .score-note:focus {
+        border-color: var(--jury);
+      }
+
+      .info-strip {
+        margin-top: 0.5rem;
+        font-family: "DM Mono", monospace;
+        font-size: 0.62rem;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+      .info-strip::before {
+        content: "◉";
+        color: var(--blue);
+        font-size: 0.5rem;
+      }
+
+      @media (max-width: 600px) {
+        .vs-row {
+          grid-template-columns: 1fr auto 1fr;
+          gap: 0.5rem;
+        }
+        .timer-display {
+          font-size: 1.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="stars"></canvas>
+    <div class="glow-orb a"></div>
+    <div class="glow-orb b"></div>
+
+    <div class="wrap">
+      <!-- Header -->
+      <header class="hdr">
+        <div class="hdr-badge">Fundamentos de Astronomía · UCR · 2026</div>
+        <h1>Agujeros Negros<br />Supermasivos</h1>
+        <p class="sub">
+          // Actividad de Debate — 3 grupos · 1 debate · 10 minutos
+        </p>
+      </header>
+
+      <!-- Groups overview -->
+      <div style="opacity: 0; animation: up 0.7s 0.3s forwards">
+        <p class="sec-label">Grupos</p>
+        <div class="groups-row">
+          <div class="g-chip">
+            <div class="g-num">G1</div>
+            <div class="g-role">Debate<br />A favor</div>
+          </div>
+          <div class="g-chip">
+            <div class="g-num">G2</div>
+            <div class="g-role">Debate<br />En contra</div>
+          </div>
+          <div class="g-chip jurado-chip">
+            <div class="g-num">G3</div>
+            <div class="g-role">Jurado<br />& Moderador</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline strip -->
+      <div
+        style="
+          opacity: 0;
+          animation: up 0.7s 0.42s forwards;
+          margin-bottom: 1.8rem;
+        "
+      >
+        <p class="sec-label">Cronograma — 10 minutos totales</p>
+        <div
+          style="
+            display: flex;
+            gap: 0.4rem;
+            align-items: stretch;
+            flex-wrap: wrap;
+          "
+        >
+          <div
+            style="
+              flex: 2;
+              min-width: 80px;
+              background: rgba(255, 140, 0, 0.08);
+              border: 1px solid rgba(255, 140, 0, 0.25);
+              border-radius: 8px;
+              padding: 0.75rem;
+              text-align: center;
+            "
+          >
+            <div
+              style="
+                font-family: &quot;DM Mono&quot;, monospace;
+                font-size: 0.6rem;
+                color: var(--orange);
+                letter-spacing: 0.15em;
+                margin-bottom: 0.3rem;
+              "
+            >
+              0:00 – 3:00
+            </div>
+            <div style="font-size: 0.82rem; font-weight: 700">Preparación</div>
+            <div
+              style="
+                font-family: &quot;DM Mono&quot;, monospace;
+                font-size: 0.6rem;
+                color: var(--muted);
+                margin-top: 0.2rem;
+              "
+            >
+              Todos los grupos
+            </div>
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              color: var(--muted);
+              font-size: 0.8rem;
+            "
+          >
+            →
+          </div>
+          <div
+            style="
+              flex: 4;
+              min-width: 140px;
+              background: rgba(255, 107, 107, 0.06);
+              border: 1px solid rgba(255, 107, 107, 0.2);
+              border-radius: 8px;
+              padding: 0.75rem;
+              text-align: center;
+            "
+          >
+            <div
+              style="
+                font-family: &quot;DM Mono&quot;, monospace;
+                font-size: 0.6rem;
+                color: var(--g1);
+                letter-spacing: 0.15em;
+                margin-bottom: 0.3rem;
+              "
+            >
+              3:00 – 10:00
+            </div>
+            <div style="font-size: 0.82rem; font-weight: 700">
+              Debate — G1 vs G2
+            </div>
+            <div
+              style="
+                font-family: &quot;DM Mono&quot;, monospace;
+                font-size: 0.58rem;
+                color: var(--muted);
+                margin-top: 0.2rem;
+              "
+            >
+              Apertura G1 (2') · Apertura G2 (2') · Réplica G1→G2 (1'30") ·
+              Réplica G2→G1 (1'30")
+            </div>
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              color: var(--muted);
+              font-size: 0.8rem;
+            "
+          >
+            →
+          </div>
+          <div
+            style="
+              flex: 4;
+              min-width: 140px;
+              background: rgba(149, 117, 205, 0.07);
+              border: 1px solid rgba(149, 117, 205, 0.25);
+              border-radius: 8px;
+              padding: 0.75rem;
+              text-align: center;
+            "
+          >
+            <div
+              style="
+                font-family: &quot;DM Mono&quot;, monospace;
+                font-size: 0.6rem;
+                color: var(--jury);
+                letter-spacing: 0.15em;
+                margin-bottom: 0.3rem;
+              "
+            >
+              10:00 – 10:30
+            </div>
+            <div style="font-size: 0.82rem; font-weight: 700">
+              Veredicto — Jurado G3
+            </div>
+            <div
+              style="
+                font-family: &quot;DM Mono&quot;, monospace;
+                font-size: 0.58rem;
+                color: var(--muted);
+                margin-top: 0.2rem;
+              "
+            >
+              Deliberación y veredicto (30 seg)
+            </div>
+          </div>
+        </div>
+        <div class="info-strip">
+          G3 evalúa en tiempo real durante el debate — delibera y anuncia el
+          veredicto en los últimos 4 minutos
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <div class="tab active" onclick="switchTab('debate')">
+          ⚔ Debate — G1 vs G2
+        </div>
+        <div class="tab" onclick="switchTab('jurado')">⚖ Jurado — G3</div>
+      </div>
+
+      <!-- ══════════════ DEBATE ══════════════ -->
+      <div id="tab-debate" class="panel active">
+        <div class="duel-card">
+          <div class="duel-header">
+            <span class="duel-badge">Duelo</span>
+            <span class="duel-title">Grupo 1 vs Grupo 2</span>
+          </div>
+
+          <div class="duel-q">
+            <div class="q-label">Pregunta del debate</div>
+            Un agujero negro supermasivo crece atrayendo materia y rodeándose de
+            un disco caliente, igual que una estrella joven en formación. ¿Es
+            esta comparación una herramienta útil para entender el fenómeno, o
+            termina ocultando diferencias fundamentales entre ambos procesos?
+          </div>
+
+          <div class="vs-row">
+            <div class="vs-team">
+              <div class="t-num" style="color: var(--g1)">G1</div>
+              <div class="t-label">A favor de la analogía</div>
+            </div>
+            <div class="vs-sep">vs</div>
+            <div class="vs-team">
+              <div class="t-num" style="color: var(--g2)">G2</div>
+              <div class="t-label">En contra de la analogía</div>
+            </div>
+          </div>
+
+          <!-- Phases -->
+          <p class="sec-label">Fases del debate</p>
+          <div class="phases" id="phases-d1">
+            <div
+              class="phase-step current"
+              onclick="
+                setPhase('d1', 0);
+                setTimerMin('d1', 3);
+              "
+            >
+              <div class="p-num">FASE 01</div>
+              <div class="p-name">Preparación</div>
+              <div class="p-dur">
+                3 min — G1 y G2 preparan, G3 revisa la rúbrica
+              </div>
+            </div>
+            <div
+              class="phase-step"
+              onclick="
+                setPhase('d1', 1);
+                setTimerMin('d1', 2);
+              "
+            >
+              <div class="p-num">FASE 02</div>
+              <div class="p-name">Apertura G1</div>
+              <div class="p-dur">2 min — G1 defiende la analogía</div>
+            </div>
+            <div
+              class="phase-step"
+              onclick="
+                setPhase('d1', 2);
+                setTimerMin('d1', 2);
+              "
+            >
+              <div class="p-num">FASE 03</div>
+              <div class="p-name">Apertura G2</div>
+              <div class="p-dur">2 min — G2 cuestiona la analogía</div>
+            </div>
+            <div
+              class="phase-step"
+              onclick="
+                setPhase('d1', 3);
+                setTimerSec('d1', 90);
+              "
+            >
+              <div class="p-num">FASE 04</div>
+              <div class="p-name">Réplica G1 → G2</div>
+              <div class="p-dur">1:30 min — G1 responde a G2</div>
+            </div>
+            <div
+              class="phase-step"
+              onclick="
+                setPhase('d1', 4);
+                setTimerSec('d1', 90);
+              "
+            >
+              <div class="p-num">FASE 05</div>
+              <div class="p-name">Réplica G2 → G1</div>
+              <div class="p-dur">1:30 min — G2 responde a G1</div>
+            </div>
+          </div>
+
+          <!-- Timer -->
+          <div class="timer-section">
+            <div class="timer-label">⏱ Temporizador de turno</div>
+            <div class="timer-controls">
+              <div class="timer-display" id="timer-d1">02:00</div>
+              <button class="timer-btn btn-start" onclick="startTimer('d1')">
+                ▶ Iniciar
+              </button>
+              <button class="timer-btn btn-pause" onclick="pauseTimer('d1')">
+                ⏸ Pausar
+              </button>
+              <button class="timer-btn btn-reset" onclick="resetTimer('d1')">
+                ↺ Reiniciar
+              </button>
+            </div>
+            <div class="preset-row">
+              <span class="preset" onclick="setTimerMin('d1', 3)"
+                >3 min — Preparación</span
+              >
+              <span class="preset" onclick="setTimerMin('d1', 2)"
+                >2 min — Turno</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Context card -->
+        <div class="duel-card">
+          <p class="sec-label">
+            Datos de su propio informe para apoyar sus argumentos
+          </p>
+          <div
+            style="font-size: 0.88rem; line-height: 1.75; color: var(--text)"
+          >
+            <p style="margin-bottom: 0.7rem">
+              ① <strong>Cómo nace un agujero negro:</strong> cuando una estrella
+              de más de 25 masas solares colapsa y el núcleo remanente supera 3
+              masas solares, la velocidad de escape supera la de la luz y se
+              forma un agujero negro.
+            </p>
+            <p style="margin-bottom: 0.7rem">
+              ② <strong>Cómo se vuelve supermasivo:</strong> crece durante
+              millones de años alimentándose de gas, polvo y estrellas cercanas,
+              y aumenta su tamaño más rápido al fusionarse con otro agujero
+              negro cuando dos galaxias colisionan (Krongold, 2011).
+            </p>
+            <p style="margin-bottom: 0.7rem">
+              ③
+              <strong
+                >La comparación con una estrella joven (ALMA, 2024):</strong
+              >
+              ambos sistemas están rodeados de materia que forma un disco
+              extremadamente caliente, y crecen progresivamente al absorberla. —
+              argumento clave para G1.
+            </p>
+            <p style="margin-bottom: 0.7rem">
+              ④ <strong>Lo que la analogía no explica:</strong> la diferencia de
+              masa es de millones a miles de millones de veces; una estrella
+              libera energía nuclear mientras un agujero negro libera energía
+              gravitatoria; y solo el agujero negro tiene un horizonte de
+              sucesos del cual nada escapa. — argumento clave para G2.
+            </p>
+            <p style="margin-bottom: 0.7rem">
+              ⑤ <strong>Ejemplos reales para citar:</strong> Sagitario A* (~4
+              millones de masas solares, fotografiado en 2022) y el agujero
+              negro de Holmberg 15A (~40 mil millones de masas solares, aún sin
+              fotografiar).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════════ JURADO ══════════════ -->
+      <div id="tab-jurado" class="panel">
+        <div class="jury-card">
+          <div class="jury-title">⚖ Panel del Jurado — Grupo 3</div>
+
+          <div
+            class="duel-q"
+            style="
+              border-left-color: var(--jury);
+              background: rgba(149, 117, 205, 0.06);
+            "
+          >
+            <div class="q-label" style="color: var(--jury)">
+              Guía del jurado
+            </div>
+            Evalúen si los argumentos usan correctamente los conceptos de su
+            propio informe: el proceso de formación, cómo crecen hasta ser
+            supermasivos, la comparación con una estrella joven (ALMA, 2024) y
+            sus límites. ¿Las réplicas responden directamente a los puntos del
+            otro grupo?
+          </div>
+
+          <p class="sec-label">Rúbrica de evaluación</p>
+          <div class="rubric-grid">
+            <div class="rubric-item">
+              <div class="r-name">Precisión científica</div>
+              <div class="r-desc">
+                ¿Los conceptos usados son correctos? ¿Hay errores factuales?
+              </div>
+            </div>
+            <div class="rubric-item">
+              <div class="r-name">Profundidad argumental</div>
+              <div class="r-desc">
+                ¿Van más allá de lo superficial? ¿Citan mecanismos físicos?
+              </div>
+            </div>
+            <div class="rubric-item">
+              <div class="r-name">Uso de evidencia</div>
+              <div class="r-desc">
+                ¿Mencionan ejemplos reales (Sagitario A*, Holmberg 15A) o
+                fuentes citadas (ALMA, Krongold, NASA, ESA)?
+              </div>
+            </div>
+            <div class="rubric-item">
+              <div class="r-name">Claridad expositiva</div>
+              <div class="r-desc">
+                ¿El argumento es fácil de seguir y bien estructurado?
+              </div>
+            </div>
+            <div class="rubric-item">
+              <div class="r-name">Respuesta a réplica</div>
+              <div class="r-desc">
+                ¿Respondieron bien a los puntos del otro grupo?
+              </div>
+            </div>
+          </div>
+
+          <p class="sec-label" style="margin-top: 1.2rem">Puntuación</p>
+          <div class="score-row">
+            <span class="score-team" style="color: var(--g1)">G1</span>
+            <div class="score-stars" id="stars-g1"></div>
+            <input
+              class="score-note"
+              placeholder="Notas del jurado…"
+              id="note-g1"
+            />
+          </div>
+          <div class="score-row">
+            <span class="score-team" style="color: var(--g2)">G2</span>
+            <div class="score-stars" id="stars-g2"></div>
+            <input
+              class="score-note"
+              placeholder="Notas del jurado…"
+              id="note-g2"
+            />
+          </div>
+        </div>
+
+        <!-- Jury timer -->
+        <div class="duel-card">
+          <div class="timer-section">
+            <div class="timer-label">⏱ Temporizador de deliberación</div>
+            <div class="timer-controls">
+              <div class="timer-display" id="timer-jury">02:00</div>
+              <button class="timer-btn btn-start" onclick="startTimer('jury')">
+                ▶ Iniciar
+              </button>
+              <button class="timer-btn btn-pause" onclick="pauseTimer('jury')">
+                ⏸ Pausar
+              </button>
+              <button class="timer-btn btn-reset" onclick="resetTimer('jury')">
+                ↺ Reiniciar
+              </button>
+            </div>
+            <div class="preset-row">
+              <span class="preset" onclick="setTimerMin('jury', 3)"
+                >3 min — Deliberación</span
+              >
+              <span class="preset" onclick="setTimerSec('jury', 30)"
+                >30 seg — Veredicto</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /wrap -->
+
+    <script>
+      /* ── Starfield ── */
+      (function () {
+        const c = document.getElementById("stars"),
+          ctx = c.getContext("2d");
+        let W,
+          H,
+          stars = [];
+        function resize() {
+          W = c.width = window.innerWidth;
+          H = c.height = window.innerHeight;
+          stars = Array.from({ length: 120 }, () => ({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            r: Math.random() * 1.2 + 0.2,
+            a: Math.random(),
+            d: Math.random() * 0.005 + 0.001,
+          }));
+        }
+        function draw() {
+          ctx.clearRect(0, 0, W, H);
+          stars.forEach((s) => {
+            s.a += s.d;
+            if (s.a > 1 || s.a < 0) s.d *= -1;
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255,255,255,${s.a * 0.7})`;
+            ctx.fill();
+          });
+          requestAnimationFrame(draw);
+        }
+        window.addEventListener("resize", resize);
+        resize();
+        draw();
+      })();
+
+      /* ── Tabs ── */
+      function switchTab(id) {
+        document
+          .querySelectorAll(".tab")
+          .forEach((t) => t.classList.remove("active"));
+        document
+          .querySelectorAll(".panel")
+          .forEach((p) => p.classList.remove("active"));
+        document.getElementById("tab-" + id).classList.add("active");
+        event.currentTarget.classList.add("active");
+      }
+
+      /* ── Phases ── */
+      function setPhase(duel, idx) {
+        const steps = document.querySelectorAll(`#phases-${duel} .phase-step`);
+        steps.forEach((s, i) => {
+          s.classList.remove("done", "current");
+          if (i < idx) s.classList.add("done");
+          else if (i === idx) s.classList.add("current");
+        });
+      }
+
+      /* ── Timers ── */
+      const timers = {};
+
+      function getEl(id) {
+        return document.getElementById("timer-" + id);
+      }
+
+      function fmt(s) {
+        const m = Math.floor(s / 60),
+          sec = s % 60;
+        return `${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
+      }
+
+      function setTimerMin(id, min) {
+        clearInterval(timers[id]?.interval);
+        timers[id] = { secs: min * 60, running: false, interval: null };
+        const el = getEl(id);
+        el.textContent = fmt(min * 60);
+        el.className = "timer-display";
+      }
+
+      function startTimer(id) {
+        if (!timers[id])
+          timers[id] = { secs: 120, running: false, interval: null };
+        const t = timers[id];
+        if (t.running) return;
+        t.running = true;
+        const el = getEl(id);
+        t.interval = setInterval(() => {
+          t.secs--;
+          el.textContent = fmt(t.secs);
+          el.className = "timer-display running";
+          if (t.secs <= 10) el.className = "timer-display danger";
+          else if (t.secs <= 30) el.className = "timer-display warning";
+          if (t.secs <= 0) {
+            clearInterval(t.interval);
+            t.running = false;
+            el.textContent = "00:00";
+            el.className = "timer-display danger";
+          }
+        }, 1000);
+      }
+
+      function pauseTimer(id) {
+        if (!timers[id]) return;
+        clearInterval(timers[id].interval);
+        timers[id].running = false;
+        getEl(id).className = "timer-display warning";
+      }
+
+      function resetTimer(id) {
+        if (!timers[id]) return;
+        clearInterval(timers[id].interval);
+        timers[id].running = false;
+        timers[id].secs = 120;
+        getEl(id).textContent = "02:00";
+        getEl(id).className = "timer-display";
+      }
+
+      // init timers
+      timers["d1"] = { secs: 120, running: false, interval: null };
+      timers["jury"] = { secs: 120, running: false, interval: null };
+
+      /* ── Stars rating ── */
+      ["g1", "g2"].forEach((id) => {
+        const cont = document.getElementById("stars-" + id);
+        let current = 0;
+        for (let i = 1; i <= 5; i++) {
+          const s = document.createElement("span");
+          s.className = "star";
+          s.textContent = "★";
+          s.dataset.v = i;
+          s.onclick = function () {
+            current = +this.dataset.v;
+            cont
+              .querySelectorAll(".star")
+              .forEach((x) =>
+                x.classList.toggle("lit", +x.dataset.v <= current),
+              );
+          };
+          cont.appendChild(s);
+        }
+      });
+    </script>
+  </body>
+</html>
